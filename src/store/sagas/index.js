@@ -1,4 +1,4 @@
-import { spawn,call,all,fork } from "@redux-saga/core/effects"
+import {all,fork } from "@redux-saga/core/effects"
 import productSaga from "./product"
 import userSaga from "./user"
 

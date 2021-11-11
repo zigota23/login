@@ -2,7 +2,7 @@ import { AppBar, Toolbar,IconButton, Tooltip  } from "@mui/material";
 import AndroidIcon from "@mui/icons-material/Android";
 import React from "react";
 import { useStyles } from "./style";
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import TokenTrue from "./TokenTrue";
 import TokenFalse from "./TokenFalse";
 import { useNavigate } from "react-router";

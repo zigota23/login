@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useStyles } from "./style";
 import { userUpdate } from "../../store/actions/user";
-import Header from "../../section/header";
 import { useDispatch } from "react-redux";
 import MyForm from "../../section/form";
 
@@ -22,9 +21,8 @@ const Update = (props)=>{
 
   const onSubmit = (values, { setSubmitting }) => {
     const {firstName,lastName,email} = values
-    dispatch(userUpdate({firstName,lastName,email}))
+    dispatch(userUpdate({firstName,lastName,email,navigate}))
     setSubmitting(false)
-    navigate('/profile')
   }
 
   const formItem = [
@@ -68,11 +66,8 @@ const Update = (props)=>{
   ]
 
   return(
-    <div>
-      <Header/>
-      <div className={s.updateForm}>
-        <MyForm onSubmit={onSubmit} initialValues={{firstName,lastName,email}} formItem={formItem}/>
-      </div>
+    <div className={s.updateForm}>
+      <MyForm onSubmit={onSubmit} initialValues={{firstName,lastName,email}} formItem={formItem}/>
     </div>
   )
 } 

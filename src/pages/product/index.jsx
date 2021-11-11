@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getProducts } from "../../store/actions/product";
 import { useStyles } from "./style";
-import Header from "../../section/header";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
@@ -17,15 +16,13 @@ const Product = (props)=>{
   useEffect(()=>{
     if(token === '')navigate('/login')
     else{
-      getProducts(getProducts())
+      dispatch(getProducts())
     } 
   },[])
 
 
   
   return (
-    <>
-      <Header/>
       <div className={s.products}>
         <TableContainer>
         <Table sx={{ minWidth:400,maxHeight:400 }} aria-label="simple table">
@@ -61,7 +58,7 @@ const Product = (props)=>{
         </Table>
       </TableContainer>
       </div>
-    </>
+
   )
 }
 

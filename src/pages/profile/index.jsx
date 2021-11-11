@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Header from "../../section/header";
 import { useStyles } from "./style";
 import img from './../../assets/img/profile.png'
 import { IconButton, Typography } from "@mui/material";
@@ -21,27 +20,24 @@ const Profile = (props)=>{
 
 
   useEffect(()=>{
-    if(token === '')navigate('/')
+    if(token === '')navigate('/login')
   },[])
 
 
   const onClickDelete = ()=>{
-    dispatch(deleteUser())
+    dispatch(deleteUser(navigate))
   }
 
   return(
-    <>
-      <Header/>
-      <div className={s.profile}>
-          <div className={s.photo}><img src={img}/></div>
-          <div className={s.userInfo}>
-            <div className={s.firstName}><Typography>{firstName}</Typography></div>
-            <div className={s.lastName}><Typography>{lastName}</Typography></div>
-            <div className={s.updateProfile} onClick={()=>{navigate('/profile/update')}}><IconButton><BorderColorIcon/></IconButton></div>
-            <div className={s.deleteUser} onClick={onClickDelete}><IconButton><DeleteIcon/></IconButton></div>
-          </div>
+    <div className={s.profile}>
+      <div className={s.photo}><img src={img}/></div>
+      <div className={s.userInfo}>
+        <div className={s.firstName}><Typography>{firstName}</Typography></div>
+        <div className={s.lastName}><Typography>{lastName}</Typography></div>
+        <div className={s.updateProfile} onClick={()=>{navigate('/profile/update')}}><IconButton><BorderColorIcon/></IconButton></div>
+        <div className={s.deleteUser} onClick={onClickDelete}><IconButton><DeleteIcon/></IconButton></div>
       </div>
-    </>
+    </div>
   )
 }
 

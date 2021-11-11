@@ -1,4 +1,4 @@
-import { takeLatest,put,call,all,takeEvery } from "@redux-saga/core/effects"
+import { takeLatest,put,call,all} from "@redux-saga/core/effects"
 import { DELETEUSER, GETUSER, LOGIN, LOGOUT, RENEWTOKEN, SETDATAUSER, SIGNUP, USERUPDATE } from "../actionTypes/user"
 import { userApi } from "../services/user"
 
@@ -7,9 +7,11 @@ import { userApi } from "../services/user"
 
 function* userDelete(action){
   try{
-    const data = yield call(userApi.userDelete,)
+    const data = yield call(userApi.userDelete)
+    debugger
     if(data.status === 200){
       yield put({type:SETDATAUSER,data:{token:'',firstName:'',lastName:'',email:''}})
+      action.payload.navigate('/login')
     }
   }
   catch(error){
@@ -36,6 +38,7 @@ function* loginUser(action){
       if(data.status === 200){
         const {accessToken:token,firstName,lastName,email}=data.data.user
         yield put({type:SETDATAUSER,data:{token,firstName,lastName,email}})
+        action.payload.navigate('/')
       }
   }
   catch(error){
@@ -50,6 +53,7 @@ function* logoutUser(action){
     const data = yield call(userApi.logout)
     if(data.status === 200){
       yield put({type:SETDATAUSER,data:{token:'',firstName:'',lastName:''}})
+      action.payload.navigate('/login')
     }
   }
   catch(error){
@@ -76,6 +80,7 @@ function* singUpUser(action){
     if(data.status === 201){
       const {accessToken:token,firstName,lastName,email}=data.data.user
       yield put({type:SETDATAUSER,data:{token,firstName,lastName,email}})
+      action.payload.navigate('/')
     }
   }
   catch(error){
@@ -92,6 +97,7 @@ function* userUpdate(action){
     if(data.status === 200){
       const {firstName,lastName,email}=data.data.updatedUser
       yield put({type:SETDATAUSER,data:{firstName,lastName,email}})
+      action.payload.navigate('/profile')
     }
   }
   catch(error){

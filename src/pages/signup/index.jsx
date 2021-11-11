@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../../section/header";
 import { useStyles } from "./style";
 import { useDispatch } from "react-redux";
 import { userSignUp } from "../../store/actions/user";
@@ -19,9 +18,8 @@ const SignUp = (props)=>{
 
   const onSubmit = (values, { setSubmitting }) => {
     const {firstName,lastName,email,password} = values
-    dispatch(userSignUp({firstName,lastName,email,password})) 
+    dispatch(userSignUp({firstName,lastName,email,password,navigate})) 
     setSubmitting(false)
-    navigate('/')
 }
 
 const formItem = [
@@ -77,7 +75,6 @@ const formItem = [
 
   return(
     <div>
-      <Header/>
       <div className={s.signUpForm}>
         <MyForm onSubmit={onSubmit} initialValues={{firstName:'',lastName:'',email:'',password:''}} formItem={formItem}/>
       </div>

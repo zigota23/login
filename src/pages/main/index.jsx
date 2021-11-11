@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Header from "../../section/header";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
@@ -14,7 +13,7 @@ const Main = ()=>{
   },[])
 
   return(
-    <Header/>
+    <></>
   )
 }
 

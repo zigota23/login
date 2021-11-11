@@ -1,6 +1,4 @@
 import * as axios from 'axios'
-import { userApi } from './user'
-import { productApi } from './product'
 import store from '../index'
 
 const instanse = axios.create({

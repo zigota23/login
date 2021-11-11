@@ -6,7 +6,7 @@ import Input from './../../components/Input'
 
 const MyForm = (props)=>{
 
-  const items = (values,errors,touched,handleChange,handleBlur,isSubmitting)=>(props.formItem.map(item=>{
+  const items = (values,errors,touched,handleChange,handleBlur,isSubmitting)=>(props.formItem.map((item,index)=>{
 
     switch(item.element){
       case 'Input':{
@@ -22,6 +22,7 @@ const MyForm = (props)=>{
               touched={touched[name]}
               placeholder={placeholder}
               sx={sx}
+              key={index}
            />
         )
       }
@@ -29,7 +30,7 @@ const MyForm = (props)=>{
       case 'Button':{
         const {type,sx} = item.propsItem
         return(
-          <Button type={type} disabled={isSubmitting} sx={sx} >
+          <Button type={type} disabled={isSubmitting} sx={sx} key={index}>
             Submit
           </Button>
         )
@@ -48,7 +49,6 @@ const MyForm = (props)=>{
         {({values,errors,touched,handleChange,handleBlur,handleSubmit,isSubmitting}) => (
           <form 
           onSubmit={handleSubmit}
-          onKeyPress={e=>{if(e.key === 'Enter')handleSubmit()}}
           >
             {items(values,errors,touched,handleChange,handleBlur,isSubmitting)}
           </form>
