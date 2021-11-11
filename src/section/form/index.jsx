@@ -3,10 +3,15 @@ import { validateEmail } from "../../validate";
 import {Button} from "@mui/material";
 import { Formik } from "formik";
 import Input from './../../components/Input'
+import { useStyles } from "./style";
+import { useNavigate } from "react-router";
 
 const MyForm = (props)=>{
 
-  const items = (values,errors,touched,handleChange,handleBlur,isSubmitting)=>(props.formItem.map((item,index)=>{
+  const s = useStyles()
+  const navigate = useNavigate()
+
+  const items = (values,errors,touched,handleChange,handleBlur)=>(props.formItem.map((item,index)=>{
 
     switch(item.element){
       case 'Input':{
@@ -27,18 +32,19 @@ const MyForm = (props)=>{
         )
       }
 
-      case 'Button':{
-        const {type,sx} = item.propsItem
-        return(
-          <Button type={type} disabled={isSubmitting} sx={sx} key={index}>
-            Submit
-          </Button>
-        )
-      }
-
       default: return null
     }
   }))
+
+  const textButton = ()=>{
+    switch(props.typeForm){
+      case 'signin': return 'Sign In'
+      case 'signup': return 'Sign Up'
+      case 'changeProfile': return 'Save'
+
+      default : return null
+    }
+  }
 
   return (
     <Formik
@@ -51,6 +57,15 @@ const MyForm = (props)=>{
           onSubmit={handleSubmit}
           >
             {items(values,errors,touched,handleChange,handleBlur,isSubmitting)}
+            <div className={s.blockSubmit}>
+              {props.typeForm=='signin'?<div className={s.staySing}><input type="checkbox" name="checkbox" onChange={handleChange} onBlur={handleBlur}  value={values.checkbox} errors={errors.checkbox} touched={touched.checkbox}/>Stay signed in?</div>:null}
+              <div className={s.blockButton}>
+                <Button type='submit' disabled={isSubmitting} variant='contained'>
+                  {textButton()}
+                </Button>
+              </div>
+            </div>
+           {props.typeForm=='signin'?<div className={s.createProfile}><Button onClick={()=>{navigate('/signup')}}>Create an account</Button></div>:null}
           </form>
         )}
         </Formik>

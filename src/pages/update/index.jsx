@@ -54,20 +54,12 @@ const Update = (props)=>{
         sx:{marginTop:'20px'}
       }
       
-    },
-    {
-      element:'Button',
-      propsItem:{
-        type:"submit",
-        sx:{marginTop:'10px'}
-      }
-   
     }
   ]
 
   return(
     <div className={s.updateForm}>
-      <MyForm onSubmit={onSubmit} initialValues={{firstName,lastName,email}} formItem={formItem}/>
+      <MyForm onSubmit={onSubmit} initialValues={{firstName,lastName,email}} formItem={formItem} typeForm='changeProfile'/>
     </div>
   )
 } 

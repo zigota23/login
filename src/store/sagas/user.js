@@ -8,7 +8,6 @@ import { userApi } from "../services/user"
 function* userDelete(action){
   try{
     const data = yield call(userApi.userDelete)
-    debugger
     if(data.status === 200){
       yield put({type:SETDATAUSER,data:{token:'',firstName:'',lastName:'',email:''}})
       action.payload.navigate('/login')

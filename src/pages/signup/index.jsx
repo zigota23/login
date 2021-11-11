@@ -61,14 +61,6 @@ const formItem = [
       sx:{marginTop:'20px'}
     }
     
-  },
-  {
-    element:'Button',
-    propsItem:{
-      type:"submit",
-      sx:{marginTop:'10px'}
-    }
- 
   }
 ]
 
@@ -76,7 +68,7 @@ const formItem = [
   return(
     <div>
       <div className={s.signUpForm}>
-        <MyForm onSubmit={onSubmit} initialValues={{firstName:'',lastName:'',email:'',password:''}} formItem={formItem}/>
+        <MyForm onSubmit={onSubmit} initialValues={{firstName:'',lastName:'',email:'',password:''}} formItem={formItem} typeForm='signup'/>
       </div>
     </div>
   )

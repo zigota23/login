@@ -25,7 +25,7 @@ const Profile = (props)=>{
 
 
   const onClickDelete = ()=>{
-    dispatch(deleteUser(navigate))
+    dispatch(deleteUser({navigate}))
   }
 
   return(

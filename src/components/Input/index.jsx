@@ -17,7 +17,7 @@ const Input = ({type,name,onChange,onBlur,value,errors,touched,placeholder,sx})=
           onBlur={onBlur}
           value={value}
           label={placeholder}
-          variant='outlined'
+          variant="standard"
           sx={sx}
         />
       </div>

@@ -53,7 +53,7 @@ const formItem = [
   return(
     <div>
       <div className={s.loginForm}>
-        <MyForm onSubmit={onSubmit} initialValues={{email:'',password:''}} formItem={formItem}/>
+        <MyForm onSubmit={onSubmit} initialValues={{email:'',password:'',checkbox:false}} formItem={formItem} typeForm='signin'/>
       </div>
     </div>
   )
