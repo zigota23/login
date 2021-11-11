@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../section/header";
 import { useStyles } from "./style";
-import img from './../../img/profile.png'
+import img from './../../assets/img/profile.png'
 import { IconButton, Typography } from "@mui/material";
-import withRedirectLogin from "../../hoc/withRedirectLogin";
-import { compose } from "redux";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { useNavigate } from "react-router";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteUser } from "../../redux/auth";
+import { deleteUser } from "../../store/actions/user";
+import { useSelector } from "react-redux";
 
 
 
@@ -17,10 +16,17 @@ const Profile = (props)=>{
 
   const s = useStyles()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {token,firstName,lastName} = useSelector(state=>state.authReducer)
+
+
+  useEffect(()=>{
+    if(token === '')navigate('/')
+  },[])
 
 
   const onClickDelete = ()=>{
-    props.deleteUser(props.token)
+    dispatch(deleteUser())
   }
 
   return(
@@ -29,8 +35,8 @@ const Profile = (props)=>{
       <div className={s.profile}>
           <div className={s.photo}><img src={img}/></div>
           <div className={s.userInfo}>
-            <div className={s.firstName}><Typography>{props.firstName}</Typography></div>
-            <div className={s.lastName}><Typography>{props.lastName}</Typography></div>
+            <div className={s.firstName}><Typography>{firstName}</Typography></div>
+            <div className={s.lastName}><Typography>{lastName}</Typography></div>
             <div className={s.updateProfile} onClick={()=>{navigate('/profile/update')}}><IconButton><BorderColorIcon/></IconButton></div>
             <div className={s.deleteUser} onClick={onClickDelete}><IconButton><DeleteIcon/></IconButton></div>
           </div>
@@ -39,16 +45,4 @@ const Profile = (props)=>{
   )
 }
 
-const mapStateToProps = (state)=>{
-  return{
-    firstName:state.authReducer.firstName,
-    lastName:state.authReducer.lastName,
-    token:state.authReducer.token
-  }
-}
-
-
-export default compose(
-  withRedirectLogin,
-  connect(mapStateToProps,{deleteUser})
-)(Profile)
+export default Profile

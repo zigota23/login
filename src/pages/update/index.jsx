@@ -1,14 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { compose } from "redux";
-import withRedirectLogin from "../../hoc/withRedirectLogin";
 import { useStyles } from "./style";
-import { userUpdate } from "../../redux/auth";
-import {Button} from "@mui/material";
-import { Formik } from "formik";
+import { userUpdate } from "../../store/actions/user";
 import Header from "../../section/header";
-import Input from './../../components/Input'
+import { useDispatch } from "react-redux";
+import MyForm from "../../section/form";
 
 
 
@@ -16,94 +13,69 @@ const Update = (props)=>{
 
   const s = useStyles()
   const navigate = useNavigate()
+  const {firstName,lastName,email,token} = useSelector(state=>state.authReducer)
+  const dispatch = useDispatch()
 
-  const validateEmail = values => {
-    const errors = {};
-    if (!values.email) {
-      errors.email = 'Required';
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-    ) {
-      errors.email = 'Invalid email address';
-    }
-    return errors;
-  }
+  useEffect(()=>{
+    if(token === '')navigate('/login')
+  },[])
 
   const onSubmit = (values, { setSubmitting }) => {
-    props.userUpdate(values.firstName,values.lastName,values.email,props.token) 
-    navigate('/profile')
+    const {firstName,lastName,email} = values
+    dispatch(userUpdate({firstName,lastName,email}))
     setSubmitting(false)
+    navigate('/profile')
   }
+
+  const formItem = [
+    {
+      element:'Input',
+      propsItem:{
+        type:"firstName",
+        name:"firstName",
+        placeholder:'First name'
+      }
+      
+    },
+    {
+      element:'Input',
+      propsItem:{
+        type:"lastName",
+        name:"lastName",
+        placeholder:'Last name',
+        sx:{marginTop:'20px'}
+      }
+      
+    },
+    {
+      element:'Input',
+      propsItem:{
+        type:"email",
+        name:"email",
+        placeholder:'Email',
+        sx:{marginTop:'20px'}
+      }
+      
+    },
+    {
+      element:'Button',
+      propsItem:{
+        type:"submit",
+        sx:{marginTop:'10px'}
+      }
+   
+    }
+  ]
 
   return(
     <div>
       <Header/>
       <div className={s.updateForm}>
-        <Formik
-          initialValues={{firstName:props.firstName,lastName:props.lastName,email:props.email}}
-          validate={validateEmail}
-          onSubmit={onSubmit}
-        >
-        {({values,errors,
-          touched,handleChange,
-          handleBlur,handleSubmit,isSubmitting}) => (
-          <form 
-          onSubmit={handleSubmit}
-          onKeyPress={e=>{if(e.key === 'Enter')handleSubmit()}}
-          >
-            <Input
-              type="firstName"
-              name="firstName"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.firstName}
-              errors={errors.firstName}
-              touched={touched.firstName}
-              placeholder='First name'
-            />
-            <Input
-              type="lastName"
-              name="lastName"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.lastName}
-              errors={errors.lastName}
-              touched={touched.lastName}
-              placeholder='Last name'
-              sx={{marginTop:'20px'}}
-              />
-            <Input
-              type="email"
-              name="email"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.email}
-              errors={errors.email}
-              touched={touched.email}
-              placeholder='Email'
-              sx={{marginTop:'20px'}}
-            />
-            <Button type="submit" disabled={isSubmitting} sx={{marginTop:'10px'}} >
-              Submit
-            </Button>
-          </form>
-        )}
-        </Formik>
+        <MyForm onSubmit={onSubmit} initialValues={{firstName,lastName,email}} formItem={formItem}/>
       </div>
     </div>
   )
 } 
 
-const mapStateToProps = (state)=>{
-  return{
-    firstName:state.authReducer.firstName,
-    lastName:state.authReducer.lastName,
-    email:state.authReducer.email,
-    token:state.authReducer.token
-  }
-}
 
-export default compose(
-  withRedirectLogin,
-  connect(mapStateToProps,{userUpdate})
-)(Update)
+export default Update

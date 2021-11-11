@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../section/header";
-import withRedirectLogin from "../../hoc/withRedirectLogin";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 
 const Main = ()=>{
+
+  const token = useSelector(state=>state.authReducer.token)
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(token === '')navigate('/login')
+  },[])
 
   return(
     <Header/>
   )
 }
 
-export default withRedirectLogin(Main)
+export default Main

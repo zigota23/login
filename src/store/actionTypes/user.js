@@ -1,0 +1,8 @@
+export const LOGIN = 'authReducer/LOGIN' 
+export const SIGNUP = 'authReducer/SIGN_UP' 
+export const RENEWTOKEN = 'authReducer/RENEW_TOKEN' 
+export const LOGOUT = 'authReducer/LOGOUT' 
+export const GETUSER = 'authReducer/GET_USER' 
+export const DELETEUSER = 'authReducer/DELETE_USER' 
+export const USERUPDATE = 'authReducer/USER_UPDATE'
+export const SETDATAUSER = 'SET_DATA_USER'

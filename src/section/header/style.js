@@ -11,5 +11,8 @@ export const useStyles = makeStyles({
   },
   icon:{
     color:"white"
+  },
+  menu:{
+    display:'flex'
   }
 })
