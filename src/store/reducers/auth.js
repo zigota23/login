@@ -1,7 +1,6 @@
 import { SETDATAUSER } from "../actionTypes/user"
 
 const initialState = {
-  token:'',
   firstName:'',
   lastName:'',
   email:'',

@@ -7,15 +7,23 @@ import Profile from './pages/profile';
 import Update from './pages/update';
 import Product from './pages/product';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import store from './store';
 import Header from './section/header';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { setDataUser } from './store/actions/user';
+
 
 
 function App() {
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+ 
+
   return (
-    <BrowserRouter> 
-      <Provider store={store}>
+    <>
         <Header/>
         <Routes>
           <Route exact path='/' element={<Main/>} />
@@ -25,8 +33,7 @@ function App() {
           <Route path='/profile/update' element={<Update/>}/>
           <Route path='/product' element={<Product/>}/>
         </Routes> 
-      </Provider>
-    </BrowserRouter> 
+    </>
    
   );
 }

@@ -21,7 +21,7 @@ const Input = ({type,name,onChange,onBlur,value,errors,touched,placeholder,sx})=
           sx={sx}
         />
       </div>
-      <div className={s.error}>{errors && touched && errors}</div>
+      <div className={s.error}>{touched&&errors}</div>
     </div>
     
   )

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { useNavigate } from "react-router";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteUser } from "../../store/actions/user";
+import { deleteUser, getUser } from "../../store/actions/user";
 import { useSelector } from "react-redux";
 
 
@@ -16,13 +16,9 @@ const Profile = (props)=>{
   const s = useStyles()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {token,firstName,lastName} = useSelector(state=>state.authReducer)
+  const {firstName,lastName} = useSelector(state=>state.authReducer)
 
-
-  useEffect(()=>{
-    if(token === '')navigate('/login')
-  },[])
-
+  if(firstName=== '' && lastName === '')dispatch(getUser())
 
   const onClickDelete = ()=>{
     dispatch(deleteUser({navigate}))

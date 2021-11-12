@@ -1,4 +1,4 @@
-import { LOGIN,SIGNUP,RENEWTOKEN,LOGOUT,GETUSER,DELETEUSER,USERUPDATE} from "../actionTypes/user"
+import { LOGIN,SIGNUP,RENEWTOKEN,LOGOUT,GETUSER,DELETEUSER,USERUPDATE, SETDATAUSER} from "../actionTypes/user"
 
 
 
@@ -16,3 +16,5 @@ import { LOGIN,SIGNUP,RENEWTOKEN,LOGOUT,GETUSER,DELETEUSER,USERUPDATE} from "../
   export const deleteUser = (payload)=>({type:DELETEUSER,payload})
   
   export const userUpdate = (payload)=>({type:USERUPDATE,payload})
+
+  export const setDataUser = (payload)=>({type:SETDATAUSER,payload})

@@ -1,19 +1,22 @@
 import { AppBar, Toolbar,IconButton, Tooltip  } from "@mui/material";
 import AndroidIcon from "@mui/icons-material/Android";
-import React from "react";
+import React, { useEffect } from "react";
 import { useStyles } from "./style";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TokenTrue from "./TokenTrue";
 import TokenFalse from "./TokenFalse";
 import { useNavigate } from "react-router";
 import AllInboxIcon from '@mui/icons-material/AllInbox';
+import { setDataUser } from "../../store/actions/user";
 
 
 
 const Header = (props) => {
   const s = useStyles()
   const navigate = useNavigate()
-  const token = useSelector(state=>state.authReducer.token)
+  const dispatch = useDispatch()
+  const token = localStorage.getItem('token')
+
 
 
   return (
@@ -33,7 +36,7 @@ const Header = (props) => {
             </div>
             
           <div className={s.menu_user}>
-            {token ===''?<TokenFalse/>:<TokenTrue/>}
+            {!token? <TokenFalse/> : <TokenTrue/>}
           </div>
           </div>
           

@@ -1,17 +1,31 @@
-import instanse from './index'
+import instanse from "./index";
 
 export const userApi = {
-  signup:(payload)=>instanse.post('/users/signup',{...payload}).then(respose=>respose),
+  signup: async (payload) => {
+    return await instanse.post("/users/signup", payload);
+  },
 
-  login:(payload)=>instanse.post('/users/login',{...payload}),
+  login: async(payload) =>{
+    return await instanse.post("/users/login", payload)
+  },
 
-  renewToken:(payload)=>instanse.post('/users/renewAcessToken',{...payload}),
+  renewToken:async (payload) =>{
+    return await instanse.post("/users/renewAcessToken", payload)
+  },
 
-  logout:()=>instanse.patch('/users/logout').then(respose=>respose),
+  logout: async() => {
+    return await instanse.patch("/users/logout")
+  },
 
-  getMe:()=>instanse.get('/users/me'),
+  getMe: async() => {
+     return  await instanse.get("/users/me")
+  },
 
-  userUpdate:(payload)=>instanse.patch('/users/update',{...payload}).then(respose=>respose),
+  userUpdate: async(payload) =>{
+    return await instanse.patch("/users/update", payload)
+  },
 
-  userDelete:()=>instanse.delete('/users/delete').then(respose=>respose)
-}
+  userDelete: async() => {
+    return await instanse.delete("/users/delete")
+  },
+};

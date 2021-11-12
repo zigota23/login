@@ -11,19 +11,17 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const Product = (props)=>{
   const s = useStyles()
-  const token = useSelector(state=>state.authReducer.token)
+  const token = localStorage.getItem('token')
   const products = useSelector(state=>state.productReducer.products)
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [page,setPage] = useState(0)
   const [itemPerPage,setIPP] = useState(5)
 
+
   useEffect(()=>{
-    if(token === '')navigate('/login')
-    else{
-      dispatch(getProducts())
-    } 
+    dispatch(getProducts())
   },[])
+  
 
   const items = ()=>{
     if(itemPerPage>0)return products.slice(itemPerPage*page,page*itemPerPage+itemPerPage)
