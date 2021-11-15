@@ -1,13 +1,13 @@
-import { SETISLOADING } from "../actionTypes/status"
+import { SETISERROR, SETISLOADING } from "../actionTypes/status"
 
 
 const initialState = {
-  isError:false,
+  isError:'',
   isLoading:false
 }
 
 
-export default statusReducer = (state=initialState,action)=>{
+const statusReducer = (state=initialState,action)=>{
   switch(action.type){
     case SETISLOADING:{
       return{
@@ -15,5 +15,15 @@ export default statusReducer = (state=initialState,action)=>{
         isLoading:action.payload
       }
     }
+    case SETISERROR:{
+      return{
+        ...state,
+        isError:action.payload
+      }
+    }
+
+    default : return state
   }
 }
+
+export default statusReducer

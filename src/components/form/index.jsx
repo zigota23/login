@@ -40,8 +40,9 @@ const MyForm = (props) => {
   };
 
   return (
-   
-        <form onSubmit={formik.handleSubmit}>
+    <div className={s.formBox}>
+      <div className={s.titleForm}>{props.title}</div>
+      <form onSubmit={formik.handleSubmit}>
           {items()}
           <div className={s.blockSubmit}>
             {props.typeForm == "signin" &&
@@ -63,7 +64,8 @@ const MyForm = (props) => {
               </Button>
             </div>
           </div>
-          {props.typeForm == "signin" &&
+        </form>
+        {props.typeForm == "signin" &&
             <div className={s.createProfile}>
               <Button
                 onClick={() => {
@@ -74,7 +76,7 @@ const MyForm = (props) => {
               </Button>
             </div>
           }
-        </form>
+    </div>    
    
   );
 };

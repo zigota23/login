@@ -5,6 +5,7 @@ import { setDataUser, userLogin } from "../../store/actions/user";
 import { useNavigate } from "react-router-dom";
 import MyForm from "../../components/form";
 import * as yup from "yup";
+import img from '../../assets/img/loginBackground.jpg'
 
 const validationSchema = yup.object({
   email: yup.string().email("Wrong email").required("Required field"),
@@ -20,7 +21,7 @@ const Login = (props) => {
   
   const onSubmit = (values, { setSubmitting }) => {
     const { email, password, checkbox = false } = values;
-    dispatch(userLogin({ email, password, checkbox, navigate }));
+    dispatch(userLogin({ email, password, navigate }));
     setSubmitting(false);
   };
 
@@ -53,6 +54,7 @@ const Login = (props) => {
 
   return (
     <div>
+      <div className={s.backgroungLogin}><img src={img}></img></div>
       <div className={s.loginForm}>
         <MyForm
           onSubmit={onSubmit}
@@ -60,6 +62,7 @@ const Login = (props) => {
           formItem={formItem}
           typeForm="signin"
           validationSchema={validationSchema}
+          title='Sign In'
         />
       </div>
     </div>

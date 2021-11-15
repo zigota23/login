@@ -5,6 +5,8 @@ import { userSignUp } from "../../store/actions/user";
 import { useNavigate } from "react-router";
 import MyForm from "../../components/form";
 import * as yup from 'yup'
+import img from '../../assets/img/loginBackground.jpg'
+
 
 const validationSchema = yup.object({
   firstName: yup.string().required('Required field'),
@@ -59,13 +61,14 @@ const SignUp = (props) => {
   const dispatch = useDispatch();
 
   const onSubmit = (values, { setSubmitting }) => {
-    const { firstName, lastName, email, password } = values;
-    dispatch(userSignUp({ firstName, lastName, email, password, navigate }));
+    const { firstName:first_name, lastName:last_name, email, password } = values;
+    dispatch(userSignUp({ first_name, last_name, email, password, navigate }));
     setSubmitting(false);
   }
 
   return (
     <div>
+      <div className={s.backgroungSignUp}><img src={img}></img></div>
       <div className={s.signUpForm}>
         <MyForm
           onSubmit={onSubmit}
@@ -73,6 +76,7 @@ const SignUp = (props) => {
           formItem={formItem}
           typeForm="signup"
           validationSchema={validationSchema}
+          title='Sign Up'
         />
       </div>
     </div>

@@ -1,14 +1,14 @@
 import { SETDATAUSER } from "../actionTypes/user"
 
 const initialState = {
-  firstName:'',
-  lastName:'',
+  first_name:'',
+  last_name:'',
   email:'',
 }
 
 const authReducer = (state = initialState,action)=>{
   switch(action.type){
-    
+
     case SETDATAUSER:{
       return{
         ...state,

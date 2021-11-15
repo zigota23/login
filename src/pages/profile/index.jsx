@@ -16,9 +16,8 @@ const Profile = (props)=>{
   const s = useStyles()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {firstName,lastName} = useSelector(state=>state.authReducer)
+  const {first_name,last_name} = useSelector(state=>state.authReducer)
 
-  if(firstName=== '' && lastName === '')dispatch(getUser())
 
   const onClickDelete = ()=>{
     dispatch(deleteUser({navigate}))
@@ -28,8 +27,8 @@ const Profile = (props)=>{
     <div className={s.profile}>
       <div className={s.photo}><img src={img}/></div>
       <div className={s.userInfo}>
-        <div className={s.firstName}><Typography>{firstName}</Typography></div>
-        <div className={s.lastName}><Typography>{lastName}</Typography></div>
+        <div className={s.firstName}><Typography>{first_name}</Typography></div>
+        <div className={s.lastName}><Typography>{last_name}</Typography></div>
         <div className={s.updateProfile} onClick={()=>{navigate('/profile/update')}}><IconButton><BorderColorIcon/></IconButton></div>
         <div className={s.deleteUser} onClick={onClickDelete}><IconButton><DeleteIcon/></IconButton></div>
       </div>
