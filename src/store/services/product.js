@@ -1,23 +1,23 @@
-import instanse from ".";
+import instanse from "./index";
 
 export const productApi = {
   createProduct: async(payload) =>{
-    return await instanse.post("/products/create ", payload).then((respose) => respose)
+    return await instanse.post("/products/create ", payload)
   },
 
   getProducts:async() => {
-    return await instanse.get("/products").then((respose) => respose)
+    return await instanse.get("/products")
   },
 
   getProductWithId:async(payload) =>{
-    return await instanse.get("/products/:" + payload.id).then((respose) => respose)
+    return await instanse.get("/products/:" + payload.id)
   },
 
   updateProduct: async({ id, ...payload }) =>{
-    return await instanse.patch(`/products/:${id}/update`, payload)
+    return await instanse.patch(`/product-update`, payload)
   },
 
   deleteProducts: async(payload) =>{
-    return await instanse.delete(`/products/:${payload.id}/delete`)
+    return await instanse.delete(`/products-delete /:${payload.id}/delete`)
   },
 };

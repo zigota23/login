@@ -37,11 +37,12 @@ function* userDelete(action) {
 
 function* getUser() {
   try {
+    
     yield put(setLoading(true));
     const data = yield call(userApi.getMe);
 
     if (data.status === 200) {
-      const { first_name, last_name, email } = data.data;
+      const { first_name, last_name, email } = data.data.profile;
       yield put({
         type: SETDATAUSER,
         data: { first_name, last_name, email },
@@ -60,7 +61,6 @@ function* loginUser(action) {
     yield put(setLoading(true));
     const { email, password, checkbox } = action.payload;
     const data = yield call(userApi.login, { email, password });
-    
     if (data.status === 200) {
       const { first_name, last_name, email } = data.data.user;
       yield put({
@@ -69,6 +69,10 @@ function* loginUser(action) {
       });
       localStorage.setItem("token", data.data.accessToken);
       action.payload.navigate("/");
+    }
+    if(data.status === 400){
+      console.log(data)
+      yield put(setError(data.message))
     }
   } catch (error) {
     console.log(error);

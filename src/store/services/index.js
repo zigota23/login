@@ -9,13 +9,10 @@ const instanse = axios.create({
 instanse.interceptors.request.use(config=>{
   const token = localStorage.getItem('token')
   config.headers.Authorization = `Bearer ${token}`
-  config.headers['Access-Control-Allow-Origin'] ='*'
-  config.headers['Access-Control-Allow-Credential']=true
   return config
 })
 
 instanse.interceptors.response.use((response) => {
-  response.headers['Access-Control-Expose-Headers']='Set-Cookie'
   return response
 }, async function (error) {
   const originalRequest = error.config;
@@ -24,6 +21,6 @@ instanse.interceptors.response.use((response) => {
     await userApi.renewToken();            
     return instanse(originalRequest);
   }
-  return error;
+  return Promise.reject(error);
 })
 export default instanse

@@ -5,7 +5,7 @@ import Login from "./pages/login";
 import SignUp from "./pages/signup";
 import Profile from "./pages/profile";
 import Update from "./pages/update";
-import Product from "./pages/product";
+import Product from "./pages/product/index";
 import Header from "./section/header";
 import { Navigate, useLocation } from "react-router";
 import Loading from "./pages/loading";
@@ -14,17 +14,21 @@ import ErrorApi from "./pages/error";
 import { getUser } from "./store/actions/user";
 import { useEffect } from "react";
 import Cookies from 'js-cookie'
+import { getProducts } from "./store/actions/product";
 
 function App() {
-  const token = Cookies.get('accessToken')
+  const token = localStorage.getItem('token')
   const location = useLocation()
   const isLoading = useSelector((state) => state.statusReducer.isLoading)
   const isError = useSelector((state) => state.statusReducer.isError)
   const dispatch =  useDispatch()
   const {first_name,last_name} = useSelector(state=>state.authReducer)
-
+  
+  const products = useSelector(state=>state.productReducer.products)
+  
   useEffect(()=>{
     if(first_name=== '' && last_name === '' && token)dispatch(getUser())
+    //dispatch(getProducts())
   },[])
 
   if (isLoading) {

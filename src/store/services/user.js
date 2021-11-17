@@ -14,7 +14,7 @@ export const userApi = {
   },
 
   logout: async() => {
-    return await instanse.patch("/logout")
+    return await instanse.get("/logout")
   },
 
   getMe: async() => {
@@ -22,10 +22,10 @@ export const userApi = {
   },
 
   userUpdate: async(payload) =>{
-    return await instanse.patch("/update", payload)
+    return await instanse.patch("/profile-update", payload)
   },
 
   userDelete: async() => {
-    return await instanse.delete("/delete")
+    return await instanse.delete("/profile-delete")
   },
 };

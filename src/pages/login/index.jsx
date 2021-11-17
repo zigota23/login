@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import MyForm from "../../components/form";
 import * as yup from "yup";
 import img from '../../assets/img/loginBackground.jpg'
+import { Skeleton } from "@mui/material";
 
 const validationSchema = yup.object({
   email: yup.string().email("Wrong email").required("Required field"),
@@ -18,7 +19,8 @@ const Login = (props) => {
   const s = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+  const isLoading = useSelector(state=>state.statusReducer.isLoading)
+
   const onSubmit = (values, { setSubmitting }) => {
     const { email, password, checkbox = false } = values;
     dispatch(userLogin({ email, password, navigate }));
@@ -56,14 +58,16 @@ const Login = (props) => {
     <div>
       <div className={s.backgroungLogin}><img src={img}></img></div>
       <div className={s.loginForm}>
-        <MyForm
+      {isLoading
+      ?<Skeleton width={384} height={350} variant="rectangular" animation="wave" sx={{ backgroundColor:'rgba(156, 156, 156, 0.5)'}}/>
+      :<MyForm
           onSubmit={onSubmit}
           initialValues={initialValuesForm}
           formItem={formItem}
           typeForm="signin"
           validationSchema={validationSchema}
           title='Sign In'
-        />
+        />}
       </div>
     </div>
   );

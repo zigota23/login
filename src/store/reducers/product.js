@@ -9,9 +9,9 @@ const productReducer = (state = initialState,action)=>{
   switch(action.type){
 
     case SETPRODUCTS:{
-      return{
+      return {
         ...state,
-        products:[...action.data]
+        products: action.payload
       }
     }
     
